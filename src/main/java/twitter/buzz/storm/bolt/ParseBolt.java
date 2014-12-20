@@ -2,6 +2,8 @@ package twitter.buzz.storm.bolt;
 
 import java.util.Map;
 
+import org.apache.storm.guava.base.Strings;
+
 import twitter4j.internal.org.json.JSONException;
 import twitter4j.internal.org.json.JSONObject;
 import backtype.storm.task.OutputCollector;
@@ -37,8 +39,12 @@ public class ParseBolt extends BaseRichBolt {
             String timestampMs = jsonObject.getString("timestamp_ms");
             String text = jsonObject.getString("text");
             String screenName = jsonObjUser.getString("screen_name");
-            collector.emit(new Values(timestampMs, text, screenName));
-            collector.ack(tuple);
+            if (!Strings.isNullOrEmpty(timestampMs)
+                && !Strings.isNullOrEmpty(text)
+                && !Strings.isNullOrEmpty(screenName)) {
+                collector.emit(new Values(timestampMs, text, screenName));
+                collector.ack(tuple);
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
