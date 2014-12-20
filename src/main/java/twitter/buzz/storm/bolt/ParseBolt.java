@@ -13,20 +13,20 @@ import backtype.storm.tuple.Tuple;
 import backtype.storm.tuple.Values;
 
 /**
- * 必要なデータだけfilterするBolt.
+ * JsonをParseするBolt.
  * @author yuya
  *
  */
-public class FilterBolt extends BaseRichBolt {
+public class ParseBolt extends BaseRichBolt {
 
     /** collector. */
-    private OutputCollector outputCollector;
+    private OutputCollector collector;
 
     @Override
     public final void prepare(final Map conf,
                         final TopologyContext context,
-                        final OutputCollector collector) {
-        outputCollector = collector;
+                        final OutputCollector outputCollector) {
+        this.collector = outputCollector;
     }
 
     @Override
@@ -37,8 +37,8 @@ public class FilterBolt extends BaseRichBolt {
             String timestampMs = jsonObject.getString("timestamp_ms");
             String text = jsonObject.getString("text");
             String screenName = jsonObjUser.getString("screen_name");
-            outputCollector.emit(new Values(timestampMs, text, screenName));
-            outputCollector.ack(tuple);
+            collector.emit(new Values(timestampMs, text, screenName));
+            collector.ack(tuple);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -47,7 +47,7 @@ public class FilterBolt extends BaseRichBolt {
 
     @Override
     public final void declareOutputFields(final OutputFieldsDeclarer declarer) {
-        declarer.declare(new Fields("data"));
+        declarer.declare(new Fields("filter"));
     }
 
 }

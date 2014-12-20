@@ -13,16 +13,20 @@ import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 
 import twitter.buzz.util.TestEnv;
-import twitter4j.internal.org.json.JSONObject;
 import backtype.storm.task.OutputCollector;
 import backtype.storm.task.TopologyContext;
 import backtype.storm.tuple.Tuple;
 import backtype.storm.tuple.Values;
 
-public class FilterBoltTest {
+/**
+ * FilterBoltのTest.
+ * @author yuya
+ *
+ */
+public class ParseBoltTest {
 
     /** filterBolt. */
-    private FilterBolt fbolt;
+    private ParseBolt pbolt;
 
     /** collector. */
     private OutputCollector collector;
@@ -36,10 +40,10 @@ public class FilterBoltTest {
 
     @Before
     public void setUp() throws Exception {
-        fbolt = new FilterBolt();
+        pbolt = new ParseBolt();
         collector = mock(OutputCollector.class);
-        fbolt.prepare(new HashMap(), mock(TopologyContext.class), collector);
-        String file = FilterBoltTest.class.getClassLoader()
+        pbolt.prepare(new HashMap(), mock(TopologyContext.class), collector);
+        String file = ParseBoltTest.class.getClassLoader()
                         .getResource(testDataFileName).getPath();
         testData = TestEnv.readData(file);
     }
@@ -48,7 +52,7 @@ public class FilterBoltTest {
     public void filterTest() {
         Tuple tuple = mock(Tuple.class);
         when(tuple.getString(0)).thenReturn(testData);
-        fbolt.execute(tuple);
+        pbolt.execute(tuple);
         ArgumentCaptor<Values> args = ArgumentCaptor.forClass(Values.class);
         verify(collector).emit(args.capture());
         String timestampMs = args.getValue().get(0).toString();
