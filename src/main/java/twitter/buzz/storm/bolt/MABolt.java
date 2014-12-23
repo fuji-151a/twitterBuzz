@@ -34,11 +34,8 @@ public class MABolt extends BaseRichBolt {
 
     @Override
     public final void execute(final Tuple tuple) {
-//        List<String> tupleData = (ArrayList<String>) tuple.;
-        String timestampMs = tuple.getStringByField("timestamp_ms");
         String text = tuple.getStringByField("text");
-        String screenName = tuple.getStringByField("screenName");
-        List<String> nodeList = new ArrayList<String>();
+
         // Taggerを構築。
         // 引数には、MeCabのcreateTagger()関数に与える引数を与える。
         StandardTagger tagger = new StandardTagger("");
@@ -50,6 +47,7 @@ public class MABolt extends BaseRichBolt {
         tagger.parse(lattice);
         // 一つずつ形態素をたどりながら、表層形と素性を出力
         Node node = lattice.bosNode();
+
         while (node != null) {
             String surface = node.surface();
             String feature = node.feature();
