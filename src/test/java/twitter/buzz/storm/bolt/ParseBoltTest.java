@@ -49,7 +49,7 @@ public class ParseBoltTest {
     }
 
     @Test
-    public void filterTest() {
+    public void parseTest() {
         Tuple tuple = mock(Tuple.class);
         when(tuple.getString(0)).thenReturn(testData);
         pbolt.execute(tuple);

@@ -41,14 +41,16 @@ public class MABoltTest {
     @Test
     public void maBoltTest() {
         List<String> data = new ArrayList<String>();
-        data.add("1415059203664");
-        data.add("日本人として知っておきたい"
-                + " \"おいしいお茶の入れ方\" http://t.co/wAwUGH93KB");
-        data.add("jyosi_up_1");
+        String text = "日本人として知っておきたい"
+                + " \"おいしいお茶の入れ方\" http://t.co/wAwUGH93KB";
+        String screenName = "jyosi_up_1";
+        String timestampMs = "1415059203664";
         String expectedNode1 = "日本人";
         String expectedNode2 = "お茶";
         Tuple tuple = mock(Tuple.class);
-        when(tuple.getValue(0)).thenReturn(data);
+        when(tuple.getStringByField("timestamp_ms")).thenReturn(timestampMs);
+        when(tuple.getStringByField("text")).thenReturn(text);
+        when(tuple.getStringByField("screenName")).thenReturn(screenName);
         mabolt.execute(tuple);
         ArgumentCaptor<Values> args = ArgumentCaptor.forClass(Values.class);
         verify(collector, times(2)).emit(args.capture());

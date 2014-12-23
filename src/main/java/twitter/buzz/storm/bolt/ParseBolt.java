@@ -27,8 +27,8 @@ public class ParseBolt extends BaseRichBolt {
     @Override
     public final void prepare(final Map conf,
                         final TopologyContext context,
-                        final OutputCollector outputCollector) {
-        this.collector = outputCollector;
+                        final OutputCollector collector) {
+        this.collector = collector;
     }
 
     @Override
@@ -53,7 +53,7 @@ public class ParseBolt extends BaseRichBolt {
 
     @Override
     public final void declareOutputFields(final OutputFieldsDeclarer declarer) {
-        declarer.declare(new Fields("filter"));
+        declarer.declare(new Fields("timestamp_ms", "text", "screenName"));
     }
 
 }

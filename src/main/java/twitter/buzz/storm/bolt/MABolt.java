@@ -28,16 +28,16 @@ public class MABolt extends BaseRichBolt {
     @Override
     public final void prepare(final Map conf,
                         final TopologyContext context,
-                        final OutputCollector oc) {
-        collector = oc;
+                        final OutputCollector collector) {
+        this.collector = collector;
     }
 
     @Override
     public final void execute(final Tuple tuple) {
-        List<String> tupleData = (ArrayList<String>) tuple.getValue(0);
-        String timestampMs = tupleData.get(0);
-        String text = tupleData.get(1);
-        String screenName = tupleData.get(2);
+//        List<String> tupleData = (ArrayList<String>) tuple.;
+        String timestampMs = tuple.getStringByField("timestamp_ms");
+        String text = tuple.getStringByField("text");
+        String screenName = tuple.getStringByField("screenName");
         List<String> nodeList = new ArrayList<String>();
         // Taggerを構築。
         // 引数には、MeCabのcreateTagger()関数に与える引数を与える。
@@ -71,7 +71,7 @@ public class MABolt extends BaseRichBolt {
 
     @Override
     public final void declareOutputFields(final OutputFieldsDeclarer declarer) {
-        declarer.declare(new Fields("ma"));
+        declarer.declare(new Fields("word"));
     }
 
 }
