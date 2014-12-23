@@ -1,7 +1,5 @@
 package twitter.buzz.storm.bolt;
 
-import java.util.List;
-import java.util.ArrayList;
 import java.util.Map;
 
 import net.moraleboost.mecab.Lattice;
@@ -17,7 +15,7 @@ import backtype.storm.tuple.Values;
 
 /**
  * 形態素解析し名詞を抽出するためのBolt.
- * @author yuya
+ * @author fuji-151a
  *
  */
 public class MABolt extends BaseRichBolt {

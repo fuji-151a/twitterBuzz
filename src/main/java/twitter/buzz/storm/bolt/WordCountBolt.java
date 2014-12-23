@@ -12,7 +12,7 @@ import backtype.storm.tuple.Tuple;
 import backtype.storm.tuple.Values;
 /**
  * 単語の出現回数を計算するBolt.
- * @author yuya
+ * @author fuji-151a
  *
  */
 public class WordCountBolt extends BaseRichBolt {

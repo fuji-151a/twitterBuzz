@@ -16,7 +16,7 @@ import backtype.storm.tuple.Values;
 
 /**
  * JsonをParseするBolt.
- * @author yuya
+ * @author fuji-151a
  *
  */
 public class ParseBolt extends BaseRichBolt {
