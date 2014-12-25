@@ -5,7 +5,8 @@ import java.util.Map;
 import net.moraleboost.mecab.Lattice;
 import net.moraleboost.mecab.Node;
 import net.moraleboost.mecab.impl.StandardTagger;
-import backtype.storm.task.OutputCollector;
+import backtype.
+storm.task.OutputCollector;
 import backtype.storm.task.TopologyContext;
 import backtype.storm.topology.OutputFieldsDeclarer;
 import backtype.storm.topology.base.BaseRichBolt;
